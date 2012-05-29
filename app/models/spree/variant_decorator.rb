@@ -1,8 +1,7 @@
 Spree::Variant.class_eval do
-  alias_method :old_price=, :price=
 
   def price=(value)
-    self.old_price = value.to_s.tr(',', '.').to_f
+    write_attribute(:price, SpreeLocalize.normalize_number(value))
   end
 
   [:cost_price, :weight, :height, :width, :depth].each do |attribute|
